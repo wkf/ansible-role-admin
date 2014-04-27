@@ -1,0 +1,5 @@
+---
+
+- include: setup_vim.yml
+- include: setup_zsh.yml
+- include: setup_tmux.yml

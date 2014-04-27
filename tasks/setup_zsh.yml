@@ -1,0 +1,22 @@
+---
+
+- name: install zsh
+  sudo: yes
+  apt: pkg=zsh update_cache=true state=latest
+
+- name: copy zsh config
+  copy: src=".zshrc" dest="~"
+
+- name: create zsh plugin directory
+  file: path="~/.zsh/plugins" state=directory
+
+- name: copy zsh prompt config
+  copy: src=".zsh/prompt.zsh" dest="~/.zsh"
+
+- name: install zsh opp plugin
+  git: repo="https://github.com/wkf/opp.zsh.git"
+       dest="~/.zsh/plugins/opp.zsh"
+
+- name: make zsh default shell for admin user
+  sudo: yes
+  user: name=admin shell=/bin/zsh

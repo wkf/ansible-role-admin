@@ -1,0 +1,23 @@
+---
+
+- name: install vim
+  sudo: yes
+  apt: pkg=vim update_cache=true state=latest
+
+- name: copy vim config
+  copy: src=".vimrc" dest="~"
+  register: vim_config
+
+- name: create vim bundle directory
+  file: path="~/.vim/bundle" state=directory
+
+- name: create vim undos directory
+  file: path="~/.vim/undos" state=directory
+
+- name: install neobundle
+  git: repo="https://github.com/Shougo/neobundle.vim.git"
+       dest="~/.vim/bundle/neobundle.vim"
+
+- name: install plugins with neobundle
+  shell: ~/.vim/bundle/neobundle.vim/bin/neoinstall
+  when: vim_config.changed
