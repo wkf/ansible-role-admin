@@ -17,6 +17,6 @@
   git: repo="https://github.com/wkf/opp.zsh.git"
        dest="~/.zsh/plugins/opp.zsh"
 
-- name: make zsh default shell for admin user
+- name: make zsh default shell for current user
   sudo: yes
-  user: name=admin shell=/bin/zsh
+  user: name={{ ansible_ssh_user }} shell=/bin/zsh

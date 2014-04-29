@@ -1,8 +1,11 @@
 ---
 
-- name: install vim
+- name: install vim and git
   sudo: yes
-  apt: pkg=vim update_cache=true state=latest
+  apt: pkg={{ item }} update_cache=true state=latest
+  with_items:
+    - vim
+    - git
 
 - name: copy vim config
   copy: src=".vimrc" dest="~"
